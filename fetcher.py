@@ -1,8 +1,11 @@
+
+'''
 import requests
 import sqlite3
+import os
 
 # --- CONFIGURATION ---
-API_KEY = "36addba6c1daee4375814f9a4ae82896" # Put your OpenWeatherMap key back!
+API_KEY = os.getenv("OPENWEATHER_API_KEY", "your_default_api_key_here")
 CITY = "Sfax,TN"
 LAT = 34.74
 LON = 10.76
@@ -82,3 +85,4 @@ local_api_url = "http://127.0.0.1:8000/predict"
 response = requests.post(local_api_url, json=ai_payload)
 
 print(f"\n🌱 AI RECOMMENDATION: {response.json()['recommended_crop'].upper()}")
+'''

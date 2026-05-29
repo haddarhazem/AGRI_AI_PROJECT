@@ -1,0 +1,6 @@
+.env
+__pycache__/
+*.pyc
+hwsd_local.db
+Sfax_Crop_Prediction.kml
+crop_model.joblib
