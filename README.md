@@ -1,30 +1,24 @@
-# Agri-AI Project 🌱
+# GeoAI Decision Support System 🌱
 
-Agri-AI is a geospatial artificial intelligence project designed to recommend the most optimal crops for agricultural regions based on atmospheric conditions and soil parameters. It utilizes remote sensing APIs to fetch topographical, atmospheric, and soil data, combining them with a trained machine learning model to provide evidence-based crop recommendations.
+GeoAI is a full-stack geospatial artificial intelligence project designed to recommend the most optimal crops for agricultural regions based on atmospheric conditions and soil parameters. 
 
-## 🚀 Features
+The system utilizes remote sensing APIs (Copernicus DEM, Open-Meteo, OpenWeatherMap) to fetch topographical and 10-year seasonal climate data, combining them with a trained machine learning model (`crop_model.joblib`) to provide evidence-based agronomic prescriptions and 3D visual diagnostics.
 
-* **Crop Recommendation API (`main.py`)**: A `FastAPI` endpoint that takes environmental parameters (Nitrogen, Phosphorus, Potassium, Temperature, Humidity, pH, and Rainfall) and returns the ideal crop using a pre-trained pipeline (`crop_model.joblib`).
-* **GeoAI Predictor (`earth_predictor.py`)**: Gathers live remote sensing and GIS data (via Copernicus, Open-Meteo, and OpenWeather), queries the trained model, and generates a `.kml` file for visualization in Google Earth.
+## 🚀 System Architecture
+
+* **FastAPI Backend (`api.py`)**: A robust REST API that processes climate data, runs the Random Forest AI model, applies agronomic guardrails to prevent Extrapolation Bias, and calculates fertilizer prescriptions.
+* **React 3D Frontend (`/frontend`)**: An interactive, animated web interface built with Vite and Three.js, allowing users to select locations, view climate diagnostics, and generate targeted soil prescriptions.
+* **GeoAI CLI Predictor (`earth_predictor.py`)**: A standalone terminal tool that runs the same data pipelines and outputs a `.kml` file for global visualization in Google Earth.
 
 ## 🛠️ Setup and Installation
 
 ### 1. Requirements
-
-Ensure you have Python 3.8+ installed. You'll need the following standard dependencies:
-- `fastapi`
-- `uvicorn`
-- `pydantic`
-- `joblib`
-- `pandas`
-- `requests`
-- `python-dotenv`
-
-(You can install the requirements by running `pip install fastapi uvicorn pydantic joblib pandas requests python-dotenv`)
+- **Python 3.8+** (for the backend & CLI)
+- **Node.js 18+** (for the frontend)
+- **Docker** (optional, for containerized running)
 
 ### 2. Configure Environment Variables
-
-Create a `.env` file in the root directory and add your OpenWeatherMap API key:
+Create a `.env` file in the root directory and add your OpenWeatherMap API key (used as a fallback if Open-Meteo fails):
 ```env
 OPENWEATHER_API_KEY=your_actual_api_key_here
 ```
@@ -35,7 +29,7 @@ OPENWEATHER_API_KEY=your_actual_api_key_here
 
 Launch the FastAPI prediction service on your localhost:
 ```bash
-uvicorn main:app --reload
+uvicorn api:app --reload --port 8000
 ```
 The API will be available at `http://127.0.0.1:8000`. You can visit `http://127.0.0.1:8000/docs` to interact with the endpoints.
 

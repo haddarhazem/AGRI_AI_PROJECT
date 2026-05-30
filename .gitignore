@@ -1,6 +1,23 @@
+# Environments & Secrets
 .env
+venv/
+env/
+
+# Python caches & notebooks
 __pycache__/
-*.pyc
-hwsd_local.db
-Sfax_Crop_Prediction.kml
-crop_model.joblib
+*.py[cod]
+*$py.class
+.ipynb_checkpoints/
+
+# Node / Frontend
+frontend/node_modules/
+frontend/dist/
+
+# Generated Files
+*.kml
+
+# OS Files
+.DS_Store
+Thumbs.db
+
+# Note: crop_model.joblib is intentionally NOT ignored as it is required to run the app
